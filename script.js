@@ -423,6 +423,9 @@ function switchToDatePicker() {
 
 
 function celebrateSuccess() {
+    // Add this to "clean" the button from previous games
+    const modalBtn = document.getElementById('modal-btn');
+    modalBtn.onclick = closeModal;
     // 1. Play the Music
     const music = document.getElementById('valentine-music');
     if (music) {
@@ -453,11 +456,18 @@ function celebrateSuccess() {
         });
     }
 
+    sessionStorage.removeItem('valentine_stage');
+
     // 3. Show Modal
     const modal = document.getElementById('response-modal');
     if (modal) {
         document.getElementById('modal-emoji').innerText = "💖✨";
         document.getElementById('modal-message').innerHTML = "<strong>I knew you'd say yes!</strong><br>I've locked it in. I love you, Bebe! 🌹";
         modal.classList.remove('hidden');
+        
+        // Ensure the modal button doesn't take her anywhere else
+        const modalBtn = document.getElementById('modal-btn');
+        modalBtn.innerText = "Close";
+        modalBtn.onclick = closeModal; 
     }
 }
