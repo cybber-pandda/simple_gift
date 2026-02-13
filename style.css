@@ -1,0 +1,317 @@
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600&display=swap');
+
+/* --- Root Variables --- */
+:root {
+    --soft-pink: #fff5f2;
+    --accent-pink: #FF85A1;
+    --deep-blush: #E05297;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.9);
+    --gold: #d4af37;
+    --heart-red: #e11d48;
+}
+
+/* --- Base Styles --- */
+body {
+    background-color: var(--soft-pink);
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    color: #4A4A4A;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- Floating Hearts Background --- */
+body::before, body::after {
+    content: "💖";
+    position: fixed;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    opacity: 0.15;
+    filter: blur(1px);
+    animation: float 8s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+body::before { top: 5%; left: 5%; }
+body::after { bottom: 8%; right: 8%; animation-delay: 4s; }
+
+@keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    50% { transform: translate3d(0, -25px, 0) rotate(8deg); }
+}
+
+/* --- Typography & Glassmorphism --- */
+.luxury-text { 
+    font-family: 'Playfair Display', serif; 
+    font-style: italic;
+}
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 40px 0 rgba(224, 82, 151, 0.1);
+}
+
+/* --- Global Stage Layout --- */
+.stage {
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+}
+
+#stage-5 { justify-content: flex-start; padding-top: 20px; }
+.hidden { display: none !important; }
+
+/* --- Memory Game (Stage 2) --- */
+#memory-grid {
+    max-width: 500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 10px;
+    justify-items: center;
+}
+@media (min-width: 400px) {
+    #memory-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.card {
+    aspect-ratio: 3/4;
+    width: clamp(75px, 20vw, 100px);
+    perspective: 1000px;
+    cursor: pointer;
+}
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+.card.flipped .card-inner { transform: rotateY(180deg); }
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 2px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.card-front { background: linear-gradient(135deg, #ffffff, #ffe4e9); }
+.card-back { 
+    background: white; 
+    transform: rotateY(180deg); 
+    color: #000000; 
+    font-size: 2.2rem; 
+    font-weight: 800;
+    font-family: 'Playfair Display', serif;
+}
+.card-red { color: var(--heart-red) !important; }
+.card-gold { color: var(--gold) !important; text-shadow: 0 0 8px rgba(212, 175, 55, 0.2); }
+.match-glow {
+    animation: match-pulse 0.6s ease-out;
+    border: 2px solid var(--gold) !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+@keyframes match-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* --- Catch Game (Stage 3) --- */
+#gameCanvas {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    border: 3px solid white;
+    box-shadow: 0 10px 30px rgba(255, 133, 161, 0.15);
+    touch-action: none;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 4/3;
+}
+.shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* --- Modals & Rizz Quotes --- */
+#response-modal { z-index: 1000; }
+#modal-message {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    font-style: italic;
+    line-height: 1.5;
+}
+#modal-message b { font-size: 1.5rem; color: var(--deep-blush); }
+
+/* --- UI Elements & Intermission --- */
+input#gatekeeper-input {
+    min-height: 45px;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    border-bottom: 2px solid var(--accent-pink);
+}
+#no-btn { transition: all 0.2s ease-out; position: absolute; }
+#intermission-text::after {
+    content: "|";
+    animation: blink 0.7s infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* --- STAGE 5: THE VAULT DASHBOARD --- */
+.nav-link {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--deep-blush);
+    padding: 10px 16px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+.nav-link.active-tab {
+    background: white;
+    box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
+}
+
+.cat-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    background: white;
+    border: 1px solid #ffe4e9;
+    color: var(--deep-blush);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+.cat-btn:hover {
+    background: var(--soft-pink);
+    transform: translateY(-2px);
+}
+
+.category-row {
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+
+/* FIXED SCROLL CONTAINER */
+.horizontal-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    /* Changed scroll-behavior to auto so JS can control it precisely */
+    scroll-behavior: auto; 
+    padding: 10px 20px 20px 20px;
+    gap: 15px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* Removed scroll-snap-type as it conflicts with JS auto-scrolling */
+    scroll-snap-type: none; 
+}
+.horizontal-scroll-container::-webkit-scrollbar { display: none; }
+
+/* FIXED MEMORY CARD */
+.mem-card {
+    /* flex-shrink: 0 is vital so cards don't squeeze to fit the screen */
+    flex: 0 0 240px; 
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 20px rgba(224, 82, 151, 0.08);
+    transition: transform 0.3s ease;
+}
+.mem-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+.mem-card p {
+    padding: 12px;
+    font-size: 0.75rem;
+    color: var(--deep-blush);
+    text-align: center;
+    font-style: italic;
+    margin: 0;
+}
+
+#tab-letter { animation: slideUp 1s ease-out; }
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ------------------------------------------------------------------------- */
+/* --- LYRIC PORTRAIT STYLES --- */
+/* ------------------------------------------------------------------------- */
+
+.portrait-container {
+    width: 95%;
+    max-width: 600px;
+    margin: 20px auto;
+    position: relative;
+    z-index: 2;
+}
+
+#tab-portrait {
+    background-color: #000;
+    min-height: 80vh;
+    width: 100vw;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+    box-shadow: inset 0 0 100px rgba(0,0,0,1);
+    animation: fadeInArt 1.5s ease-in-out;
+}
+
+@keyframes fadeInArt {
+    from { opacity: 0; background-color: var(--soft-pink); }
+    to { opacity: 1; background-color: #000; }
+}
+
+#lyrics {
+    margin: 0 auto;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 6.5px;
+    line-height: 5.5px;
+    letter-spacing: -1px;
+    text-align: justify;
+    word-break: break-all;
+    text-transform: uppercase;
+    background: url('assets/cath.png') no-repeat center top;
+    background-size: contain; 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    color: transparent;
+    filter: contrast(160%) brightness(110%); 
+}

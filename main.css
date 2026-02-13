@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.portrait-container {
+    width: 100%;
+    max-width: 800px; /* Adjust based on your image aspect ratio */
+    margin: 20px auto;
+}
+
+p {
+    margin: 0;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 6.5px; /* Small enough to create texture */
+    line-height: 5.5px; 
+    letter-spacing: -1px;
+    text-align: justify;
+    word-break: break-all;
+    text-transform: uppercase;
+
+    /* The Secret: background-attachment: scroll (or just remove fixed) */
+    background: url('assets/cath.png') no-repeat center top;
+    background-size: contain; /* Ensures the whole photo fits the width */
+    
+    /* Text Clipping Magic */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Transparency */
+    -webkit-text-fill-color: transparent; 
+    color: transparent;
+
+    /* Makes the image details sharper through the letters */
+    filter: contrast(150%) brightness(100%);
+}

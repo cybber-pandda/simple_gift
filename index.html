@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vault | Valentine 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+    <section id="stage-1" class="stage">
+        <h2 class="luxury-text text-5xl mb-8 text-rose-500 font-light italic text-center">The Vault</h2>
+        <div class="glass p-10 rounded-3xl flex flex-col items-center w-80 gate-box">
+            <p id="gate-instruction"
+                class="text-rose-400 text-xs mb-6 uppercase tracking-widest font-semibold text-center">Put the secret
+                code</p>
+            <div id="input-container" class="w-full mb-6">
+                <input type="text" id="gatekeeper-input" placeholder="Type here..."
+                    class="bg-transparent border-b-2 border-rose-300 p-2 text-lg outline-none text-rose-600 focus:border-rose-500 transition-all text-center w-full">
+            </div>
+            <button id="unlock-btn" onclick="handleAuth()" disabled
+                class="px-10 py-3 bg-rose-300 text-white rounded-full text-xs uppercase tracking-widest transition-all font-bold shadow-md opacity-50 cursor-not-allowed">
+                Unlock
+            </button>
+        </div>
+    </section>
+
+    <section id="stage-2" class="stage hidden">
+        <h2 class="luxury-text text-4xl mb-2 text-rose-500 text-center">Play Some Games First</h2>
+        <p class="text-rose-400 text-[10px] uppercase tracking-[0.2em] mb-8 font-semibold">Find the two partner cards to
+            proceed</p>
+        <div id="memory-grid" class="grid grid-cols-4 gap-3 p-6 max-w-sm"></div>
+        <button id="next-stage-2" onclick="goToStage(3)"
+            class="hidden mt-8 px-10 py-3 bg-rose-400 text-white rounded-full shadow-lg hover:bg-rose-500 hover:scale-105 transition-all uppercase tracking-widest font-bold text-xs">
+            Proceed →
+        </button>
+    </section>
+
+    <section id="stage-3" class="stage hidden px-4">
+        <div class="text-center mb-4">
+            <h2 class="luxury-text text-3xl md:text-4xl text-rose-500 mb-2">Catch the Love</h2>
+            <p id="score-display" class="text-rose-400 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                Score: 0 / 10</p>
+        </div>
+        <div class="canvas-wrapper w-full flex justify-center">
+            <canvas id="gameCanvas"
+                class="max-w-full h-auto border-2 border-rose-200 rounded-2xl shadow-inner"></canvas>
+        </div>
+    </section>
+
+    <section id="stage-4" class="stage hidden">
+        <p id="intermission-text"
+            class="luxury-text text-3xl italic text-rose-500 text-center max-w-md leading-relaxed p-6"></p>
+    </section>
+
+    <section id="stage-5" class="stage hidden bg-[#fffafa] min-h-screen flex flex-col items-center py-10">
+        <div class="text-center mb-6 animate-fadeIn w-full px-4">
+            <h2 class="luxury-text text-3xl text-rose-500">Welcome to Our Vault</h2>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Every moment, preserved for you.</p>
+        </div>
+
+        <nav class="flex gap-2 mb-8 glass p-2 rounded-full sticky top-4 z-50 shadow-sm bg-white/50 backdrop-blur-md">
+            <button id="btn-memories" onclick="showTab('memories')"
+                class="nav-link active-tab text-[10px] sm:text-xs">Memories</button>
+            <button id="btn-stats" onclick="showTab('stats')" class="nav-link text-[10px] sm:text-xs">Stats</button>
+            <button id="btn-portrait" onclick="showTab('portrait')" class="nav-link text-[10px] sm:text-xs">Art</button>
+            <button id="final-letter-nav" onclick="showTab('letter')"
+                class="nav-link opacity-40 cursor-not-allowed text-[10px] sm:text-xs">Locked</button>
+        </nav>
+
+        <div id="tab-memories" class="tab-content w-full">
+            <div class="flex flex-col gap-12 pb-20">
+                <div id="sec-dates" class="category-row">
+                    <div class="flex justify-between items-center px-6 mb-3">
+                        <h3 class="luxury-text text-xl text-rose-500">Simple Dates</h3>
+                        <span class="text-[9px] text-rose-300 uppercase tracking-widest animate-pulse">Swipe →</span>
+                    </div>
+                    <div class="horizontal-scroll-container">
+                        <div class="mem-card glass"><img src="assets/Date/CHOWKING.jpg">
+                            <p>Food is better with you. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/DRINKS.jpg">
+                            <p>Food is better with you. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/DUNKIN.jpg">
+                            <p>Food is better with you. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/DUNKIN(0.1).jpg">
+                            <p>Food is better with you. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/FOOD.jpg">
+                            <p>Food is better with you. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/FOOD1.jpg">
+                            <p>Food is better with you. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/FOOD2.jpg">
+                            <p>Food is better with you. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/IKONIC.jpg">
+                            <p>Food is better with you. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/JOLIBEE.jpg">
+                            <p>Food is better with you. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/finger.jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/finger1.jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/finger2.jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/CINE.jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/CINE(0.1).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/CINE(0.2).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(1).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(2).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(3).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(4).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(5).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(6).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM7 (1).jpeg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM7 (2).jpeg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(0.1).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(0.2).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(0.3).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(0.4).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SM(0.5).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SAMGYUP.jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SAMGUP(0.1).jpeg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/SAMGYUP(0.1).jpg">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/COD.PNG">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Date/COD(1).PNG">
+                            <p>Sweet moments. ❤️</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="sec-pics" class="category-row">
+                    <div class="flex justify-between items-center px-6 mb-3">
+                        <h3 class="luxury-text text-xl text-rose-500">Random Pictures</h3>
+                        <span class="text-[9px] text-rose-300 uppercase tracking-widest">Swipe →</span>
+                    </div>
+                    <div class="horizontal-scroll-container">
+                        <div class="mem-card glass"><img src="assets/Random Pics/1.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/2.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/3.PNG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/4.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/5.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/6.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/7.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/8.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/9.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/10.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/11.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/12.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/13.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/14.PNG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/15.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/16.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/17.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/18.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/19.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/20.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/21.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/22.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/23.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/24.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/25.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/26.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/27.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/28.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/29.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/30.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/31.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/32.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/33.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/34.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/35.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/36.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/37.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/38.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/39.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/40.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                        <div class="mem-card glass"><img src="assets/Random Pics/41.JPG">
+                            <p>Random Pics</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sec-gifts" class="category-row">
+                    <div class="flex justify-between items-center px-6 mb-3">
+                        <h3 class="luxury-text text-xl text-rose-500">Gifts</h3>
+                        <span class="text-[9px] text-rose-300 uppercase tracking-widest animate-pulse">Swipe →</span>
+                    </div>
+
+                    <div class="horizontal-scroll-container">
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/11 (1).jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/12.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/13.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/14.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/15.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/16.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/17.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/18.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/7.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/8.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/9.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/10.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/1.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/3.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/4.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                        <div class="mem-card glass">
+                            <img src="assets/Gifts/5.jpg">
+                            <p>Pretty energy. ✨</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-stats" class="tab-content hidden w-full px-6 max-w-md">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass p-6 text-center">
+                    <span class="text-3xl block text-rose-500 font-bold">311</span>
+                    <span class="text-[10px] uppercase text-gray-500 tracking-tighter">Days of Us</span>
+                </div>
+                <div class="glass p-6 text-center">
+                    <span class="text-3xl block text-rose-500 font-bold">1,000+</span>
+                    <span class="text-[10px] uppercase text-gray-500 tracking-tighter">Hours of Calls</span>
+                </div>
+                <div class="glass p-6 text-center col-span-2">
+                    <span class="text-xl italic block text-rose-400">"You are my favorite notification."</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-portrait" class="tab-content hidden w-full px-4 overflow-hidden">
+            <div class="portrait-container">
+                <p id="lyrics">
+                    I don't care about the scars you hide Or the secrets that you've tried to fight
+                    Every flaw, everything you've done I still see the fire, I see the sun
+                    I don't care who held you before Or the hearts you left out on the floor
+                    All I know is when you're with me You're wild, you're free, you're everything I need
+                    Screw the doubt, screw the lies I see the truth behind your eyes
+                    I don't care who had you before You look better with me, that's for sure.
+                </p>
+            </div>
+        </div>
+
+        <div id="tab-letter" class="tab-content hidden w-full px-6 max-w-md">
+            <div class="glass p-8 rounded-3xl leading-relaxed text-gray-700 italic shadow-inner bg-white/80">
+                <h3 class="luxury-text text-2xl mb-4 text-rose-500">My Dearest...</h3>
+                <p>Happy Valentine’s Day, Bebe. I wanted to take a moment to remind you of how much you mean to me.
+                    Please never doubt your worth or your beauty, I chose you because there is no one else like you.
+                    I see all the effort you put into the gifts you make, and it honestly touches me so deeply that I
+                    sometimes wonder how I got so lucky. If I haven't always been the best at showing it, I'm sorry. I
+                    know I’m not the most 'clingy' or expressive person, but please know that you are the most special
+                    part of my life. I am committed to learning how to love you better every day. I love you more than
+                    words can say, and I’m so excited for our future together. 🤍</p>
+                <p class="mt-4">Forever yours, <br>Daveson</p>
+
+                <div class="mt-8 flex flex-col items-center gap-6">
+                    <h3 class="luxury-text text-2xl text-rose-500">Will you be my Valentine? 🌹</h3>
+
+                    <div class="flex flex-row items-center justify-center gap-4 min-h-[80px]">
+                        <button id="yes-btn" onclick="celebrateSuccess()"
+                            class="bg-rose-500 text-white px-8 py-3 rounded-full font-bold shadow-lg transition-all duration-300">
+                            YES!😎😎😎
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="response-modal"
+        class="fixed inset-0 z-[100] flex items-center justify-center hidden bg-black/20 backdrop-blur-sm">
+        <div
+            class="glass p-8 rounded-[2rem] max-w-sm w-11/12 text-center shadow-2xl border-2 border-rose-300 bg-white/95">
+            <h3 id="modal-emoji" class="text-4xl mb-4 block">🧐</h3>
+            <p id="modal-message" class="text-rose-600 text-sm leading-relaxed mb-6"></p>
+            <button id="modal-btn" onclick="closeModal()"
+                class="px-8 py-2 bg-rose-400 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-rose-500">Okay</button>
+        </div>
+    </div>
+
+    <audio id="valentine-music" loop>
+        <source src="assets/music/song.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

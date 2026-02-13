@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyric Portrait</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <div class="portrait-container">
+        <p id="lyrics">
+            I don't care about the scars you hide Or the secrets that you've tried to fight 
+            Every flaw, everything you've done I still see the fire, I see the sun 
+            I don't care who held you before Or the hearts you left out on the floor 
+            All I know is when you're with me You're wild, you're free, you're everything I need 
+            Screw the doubt, screw the lies I see the truth behind your eyes 
+            I don't care who had you before You look better with me, that's for sure.
+        </p>
+    </div>
+
+    <script>
+        const p = document.getElementById('lyrics');
+        // We repeat it enough times to cover the height of the image
+        // If your image is tall, increase this number
+        p.innerText = (p.innerText + ' ').repeat(150);
+    </script>
+</body>
+</html>
